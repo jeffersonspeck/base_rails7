@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
     <title><%= content_for(:title) || "Your Project" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="UTF-8">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_importmap_tags %>    
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>    
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, crossorigin: 'anonymous', type: "module" %>  
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

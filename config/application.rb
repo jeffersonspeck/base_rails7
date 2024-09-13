@@ -15,6 +15,10 @@ module RailsBase7
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    config.i18n.default_locale = :en # :pt :en, :es, etc.
+    config.action_dispatch.default_headers = {
+      'Content-Type' => 'text/html; charset=utf-8'
+    }    
 
     # Configuration for the application, engines, and railties goes here.
     #
