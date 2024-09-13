@@ -4,6 +4,7 @@ Turbo.start();
 import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
+import "jquery";
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
