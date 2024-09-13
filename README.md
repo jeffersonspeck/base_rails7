@@ -56,7 +56,7 @@ Before running the command `rails db:create`, you need to modify the following f
 
 2. **Environment Variables**: Ensure that your PostgreSQL username and password are correctly set in your environment, especially for the production environment. You can use a `.env` file or configure these in your deployment settings.
 
-    ##Environment Configuration
+    Environment Configuration
 
       To set up the environment variables needed for the database configuration, create a `.env` file in the root of your project and add the following settings:
 
