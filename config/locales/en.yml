@@ -1,0 +1,41 @@
+en:
+  actions:
+    edit: "Edit"
+    back: "Back"
+    show: "Show"
+    new: "New %{model}"
+    destroy: "Delete"
+    confirm_destroy: "Are you sure you want to delete this?"
+
+  helpers:
+    submit:
+      create: "Create %{model}"
+      update: "Update %{model}"
+
+  views:
+    edit:
+      editing: "Editing %{model}"
+
+  notices:
+    created: "%{model} was successfully created."
+    updated: "%{model} was successfully updated."
+    destroyed: "%{model} was successfully destroyed."
+
+  titles:
+    details: "%{model} Details"
+
+  errors:
+    template:
+      header:
+        one: "%{count} error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
+      body: "There were problems with the following fields:"
+
+  activerecord:
+    errors:
+      models:
+        <%= singular_table_name %>:
+          attributes:
+            <%= attribute_name %>:
+              blank: "can't be blank"
+              invalid: "is invalid"

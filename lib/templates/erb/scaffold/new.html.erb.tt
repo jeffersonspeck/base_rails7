@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="shadow-sm p-3 mb-4 bg-white rounded">
+    <h1><%%= t('.create', model: <%= singular_table_name.titleize %>) %></h1>
+    <%%= render 'form', <%= singular_table_name %>: @<%= singular_table_name %> %>
+    <div class="mt-3">
+      <%%= link_to <%= index_helper %>_path, class: "btn btn-secondary" do %>
+        <i class="fas fa-arrow-left"></i> <%%= t('actions.back') %>
+      <%% end %>
+    </div>
+  </div>  
+</div>

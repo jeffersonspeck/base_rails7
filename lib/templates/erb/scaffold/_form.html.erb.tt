@@ -1,0 +1,50 @@
+<%# Formulário com sombra flutuante %>
+<div class="container-fluid">
+  <div class="shadow-sm p-4 mb-4 bg-white rounded">
+    <%%= form_with(model: <%= model_resource_name %>) do |form| %>
+      <%# Exibição de erros com sombra flutuante %>
+      <%% if <%= singular_table_name %>.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h2><%%= t('errors.template.header', count: <%= singular_table_name %>.errors.count, model: <%= singular_table_name.capitalize %>) %></h2>
+          <p><%%= t('errors.template.body') %></p>
+          <ul>
+            <%% <%= singular_table_name %>.errors.full_messages.each do |message| %>
+              <li><%%= message %></li>
+            <%% end %>
+          </ul>
+        </div>
+      <%% end %>
+
+      <% attributes.each do |attribute| -%>
+        <div class="form-group mb-3">
+          <% if attribute.password_digest? -%>
+            <%%= form.label :password, class: "form-label" %>
+            <%%= form.password_field :password, class: "form-control" %>
+          </div>
+          <div class="form-group mb-3">
+            <%%= form.label :password_confirmation, class: "form-label" %>
+            <%%= form.password_field :password_confirmation, class: "form-control" %>
+          <% elsif attribute.attachments? -%>
+            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
+            <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
+          <% elsif attribute.type == :boolean -%>
+            <div class="form-check mb-3">
+              <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" %>
+              <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
+            </div>
+          <% elsif attribute.reference? -%>
+            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
+            <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :name, { prompt: true }, { class: "form-select" } %>
+          <% else -%>
+            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
+            <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+          <% end -%>
+        </div>
+      <% end -%>
+
+      <div class="form-group mb-3">
+        <%%= form.submit class: 'btn btn-primary' %>
+      </div>
+    <%% end %>
+  </div>
+</div>
