@@ -16,6 +16,9 @@ gem 'kaminari'
 gem 'font-awesome-sass', '~> 6.0'
 gem 'dotenv-rails', groups: [:development, :test]
 
+#home content
+gem 'redcarpet'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

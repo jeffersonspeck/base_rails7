@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body">
+          <% if @readme_content.present? %>
+            <%= markdown(@readme_content) %>
+          <% else %>
+            <p class="text-center">README.md não encontrado.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
