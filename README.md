@@ -23,9 +23,6 @@ The project is built using the following technologies:
 - **File Uploads**: CarrierWave
 - **Image Processing**: MiniMagick
 
-## Gems Used
-
-Below is a list of key gems used in this project, with links to their documentation:
 
 ## Gems Used
 
