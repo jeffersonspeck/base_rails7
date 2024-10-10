@@ -1,0 +1,11 @@
+<p>Olá, <%= @resource.name %>!</p>
+
+<p>Obrigado por se cadastrar no ContratosApp.</p>
+
+<p>Para confirmar sua conta, clique no link abaixo:</p>
+
+<p><%= link_to 'Confirmar minha conta', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>Se você não solicitou esta conta, nenhuma ação é necessária.</p>
+
+<p>Atenciosamente,<br>Equipe ContratosApp</p>

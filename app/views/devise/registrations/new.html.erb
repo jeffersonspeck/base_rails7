@@ -1,0 +1,84 @@
+<style>
+  body {
+    background-color: #f0f2f5;
+  }
+  .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  }
+  .form-control:focus {
+    box-shadow: none;
+    border-color: #6c63ff;
+  }
+  .btn-primary {
+    background-color: #6c63ff;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #5a54d1;
+  }
+  .logo {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    margin: 0 auto 20px;
+  }
+  .link {
+    color: #6c63ff;
+  }
+  .link:hover {
+    text-decoration: underline;
+    color: #5a54d1;
+  }
+  /* Adicione quaisquer estilos adicionais aqui */
+</style>"
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="card p-4" style="width: 100%; max-width: 400px;">
+    <div class="logo"></div>
+    <h3 class="text-center mb-4">Crie sua conta</h3>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <% if resource.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label :name, "Nome Completo" %>
+        <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Digite seu nome completo" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control", placeholder: "Digite seu email" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Digite sua senha" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirme sua Senha" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirme sua senha" %>
+      </div>
+
+      <%= f.submit "Cadastrar", class: "btn btn-primary btn-block" %>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <span>Já tem uma conta? <%= link_to "Entrar", new_session_path(resource_name), class: "link" %></span>
+    </div>
+  </div>
+</div>

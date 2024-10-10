@@ -1,0 +1,36 @@
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="card p-4" style="width: 100%; max-width: 400px;">
+    <div class="logo"></div>
+    <h3 class="text-center mb-4">Alterar Senha</h3>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+      <% if resource.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= f.hidden_field :reset_password_token %>
+
+      <div class="form-group">
+        <%= f.label :password, "Nova Senha" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Digite sua nova senha" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirme a Nova Senha" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirme sua nova senha" %>
+      </div>
+
+      <%= f.submit "Alterar Senha", class: "btn btn-primary btn-block" %>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <span>Lembrou a senha? <%= link_to "Entrar", new_session_path(resource_name), class: "link" %></span>
+    </div>
+  </div>
+</div>

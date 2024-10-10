@@ -1,0 +1,66 @@
+pt-BR:
+  status:
+    active:
+      true: "Sim"
+      false: "Não"
+
+  actions:
+    edit: "Editar"
+    back: "Voltar"
+    show: "Mostrar"
+    new: "Novo %{model}"
+    destroy: "Excluir"
+    confirm_destroy: "Tem certeza de que deseja excluir isso?"
+
+  helpers:
+    submit:
+      create: "Criar %{model}"
+      update: "Atualizar %{model}"
+
+  views:
+    create:
+      creating: "Criando %{model}"
+    edit:
+      editing: "Editando %{model}"
+
+  notices:
+    created: "%{model} foi criado com sucesso."
+    updated: "%{model} foi atualizado com sucesso."
+    destroyed: "%{model} foi excluído com sucesso."
+
+  titles:
+    details: "Detalhes de %{model}"
+
+  errors:
+    template:
+      header:
+        one: "%{count} erro impediu que este %{model} fosse salvo"
+        other: "%{count} erros impediram que este %{model} fosse salvo"
+      body: "Houve problemas com os seguintes campos:"
+
+  activerecord:
+    models:
+      contract_type: Tipo de Contrato
+      term_type: Tipo de Termo
+      term: Termo de Contrato
+    attributes:
+      contract_type:
+        name: Nome
+        description: Descrição/Mensagem
+        active: Ativo
+      term_type:
+        name: Nome
+        description: Descrição/Mensagem
+        active: Ativo
+      term:
+        name: Nome
+        description: Explícação
+        full_text: Texto do Termo
+        active: Ativo  
+    errors:
+      models:
+        <%= singular_table_name %>:
+          attributes:
+            <%= attribute_name %>:
+              blank: "não pode ficar em branco"
+              invalid: "é inválido"

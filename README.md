@@ -10,16 +10,40 @@ The project is built using the following technologies:
 
 - **Ruby**: 3.2.2
 - **Rails**: 7.2.1
+- **Database**: PostgreSQL (`pg`, `~> 1.1`)
+- **Application Server**: Puma (`>= 5.0`)
+- **Front-End**: Bootstrap (`~> 5.3.3`), Font Awesome (`~> 6.0`), jQuery
+- **Build and Asset Management Tools**: Sprockets, Dartsass Sprockets, Importmap, Turbo Rails, Stimulus Rails
+- **Pagination**: Kaminari
+- **Markdown Rendering**: Redcarpet
+- **Environment Variable Management**: Dotenv Rails (development and test environments)
+- **JSON Generation**: Jbuilder
+- **User Authentication**: Devise
+- **Authorization**: Cancancan
+- **File Uploads**: CarrierWave
+- **Image Processing**: MiniMagick
+
+## Gems Used
+
+Below is a list of key gems used in this project, with links to their documentation:
 
 ## Gems Used
 
 Below is a list of key gems used in this project, with links to their documentation:
 
 - [Bootstrap](https://github.com/twbs/bootstrap-rubygem) (`~> 5.3.3`): Used for styling and responsive design.
-- [DartSass Sprockets](https://github.com/bolandrm/dartsass-sprockets): To compile SCSS files using Dart Sass.
+- [Dartsass Sprockets](https://github.com/bolandrm/dartsass-sprockets): Compiles SCSS files using Dart Sass.
 - [jQuery Rails](https://github.com/rails/jquery-rails): Integration of jQuery with Rails.
 - [Kaminari](https://github.com/kaminari/kaminari): For simple and flexible pagination of records.
 - [Font Awesome Sass](https://github.com/FortAwesome/font-awesome-sass) (`~> 6.0`): Icons for the interface, integrated with SASS.
+- [Redcarpet](https://github.com/vmg/redcarpet): A fast, safe, and extensible Markdown to (X)HTML parser.
+- [Dotenv Rails](https://github.com/bkeepers/dotenv): Loads environment variables from `.env`.
+- [Jbuilder](https://github.com/rails/jbuilder): Generate JSON structures via a builder-style DSL.
+- [Devise](https://github.com/heartcombo/devise): Flexible authentication solution for Rails with Warden.
+- [Cancancan](https://github.com/CanCanCommunity/cancancan): Authorization library for Ruby on Rails which restricts what resources a given user is allowed to access.
+- [CarrierWave](https://github.com/carrierwaveuploader/carrierwave): Classier solution for file uploads for Rails, Sinatra, and other Ruby web frameworks.
+- [MiniMagick](https://github.com/minimagick/minimagick): A ruby wrapper for ImageMagick or GraphicsMagick command line.
+
 
 ## Database
 

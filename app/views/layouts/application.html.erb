@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_importmap_tags %>    
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, crossorigin: 'anonymous', type: "module" %>  
+    <script src="https://cdn.tiny.cloud/1/y13juh5x7n32fyuctf4iewb9rsdzcpqfwkc8m53fw73kygmh/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -20,6 +21,105 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <ul class="menu-list">
+          <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+          <li><a href="#"><i class="fas fa-file"></i> Menu 1</a></li>
+          <li><a href="#"><i class="fas fa-bell"></i> Menu 2</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-btn"><i class="fas fa-folder"></i>Submenu 1<i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-container">
+              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 1</a></li>
+              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 2</a></li>
+              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 3</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-btn"><i class="fas fa-users"></i> Menu 3 <i class="fas fa-caret-down"></i></a>
+            <ul class="dropdown-container">
+              <li>
+                <a href="javascript:void(0)" class="submenu-btn"><i class="fas fa-user-friends"></i> Submenu 2 <i class="fas fa-caret-right"></i></a>
+                <ul class="sub-dropdown-container">
+                  <li><a href="#"><i class="fas fa-folder"></i> Opção 1</a></li>
+                  <li><a href="#"><i class="fas fa-folder"></i> Opção 2</a></li>
+                  <li><a href="#"><i class="fas fa-folder"></i> Opção 3</a></li>
+                </ul>
+              </li>
+              <li><a href="#"><i class="fas fa-user-friends"></i> Advogado</a></li>
+              <li>
+                <a href="javascript:void(0)" class="submenu-btn"><i class="fas fa-file-alt"></i> Submenu 3 <i class="fas fa-caret-right"></i></a>
+                <ul class="sub-dropdown-container">
+                  <li><a href="#"><i class="fas fa-plus"></i> Opção 1</a></li>
+                  <li><a href="#"><i class="fas fa-edit"></i> Opção 2</a></li>
+                  <li><a href="#"><i class="fas fa-trash"></i> Opção 3</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          
+        </ul>
+        <div class="bottom-menu">
+          <ul>
+            <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
+            <li><%= link_to destroy_user_session_path, method: :delete do %><i class="fas fa-sign-out-alt"></i> Logout</a><% end %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="overlay" onclick="openNav()">
+        <span id="openSidebarBtn"><i class="fas fa-bars"></i></span>
+      </div>
+    <% end %>      
+    <div class="content" id="mainContent">
+      <%= yield %>
+    </div>   
   </body>
+  <script>
+    function openNav() {
+      $("#mySidebar").css("width", "250px");
+      $(".content").css("margin-left", "250px");
+      $(".overlay").hide(); // Esconde o botão de overlay ao abrir o menu
+    }
+  
+    function closeNav() {
+      $("#mySidebar").css("width", "0");
+      $(".content").css("margin-left", "0");
+      $(".overlay").show(); // Mostra o botão de overlay ao fechar o menu
+    }
+  
+    // Função para os dropdowns do menu
+    function setupDropdowns() {
+      $('.dropdown-btn').off('click').on('click', function() {
+        $(this).toggleClass('active');
+        $(this).next('.dropdown-container').slideToggle(); // Expande/recolhe o conteúdo do dropdown
+      });
+    }
+  
+    // Garante que o setupDropdowns é chamado após o carregamento inicial e após visitas Turbo
+    document.addEventListener("DOMContentLoaded", setupDropdowns);
+    document.addEventListener("turbo:load", setupDropdowns);
+
+    document.querySelectorAll('.submenu-btn').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault(); // Previne o comportamento padrão
+        const submenu = this.nextElementSibling; // Pega o próximo submenu
+
+        // Alterna a exibição do submenu
+        if (submenu) {
+          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+    });
+
+    // Fechar submenus ao clicar fora
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.sub-dropdown-container').forEach(submenu => {
+          submenu.style.display = 'none'; // Ocultar todos os submenus
+        });
+      }
+    });    
+  </script>
 </html>

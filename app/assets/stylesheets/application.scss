@@ -2,3 +2,138 @@
 @import "bootstrap";
 @import "font-awesome";
 
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Previne rolagem horizontal quando o menu está aberto */
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #343a40;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar .menu-list,
+.sidebar .bottom-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar a {
+  padding: 8px 15px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #f8f9fa;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #ff9800;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 20px;
+  margin-left: 50px;
+  color: #f8f9fa;
+}
+
+.sidebar .dropdown-btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar .dropdown-container {
+  display: none;
+  background-color: #454d55;
+  padding-left: 15px;
+  list-style-type: none; /* Remove os marcadores dos subitens */
+}
+
+.sidebar .dropdown-container li {
+  padding: 5px 0;
+  list-style-type: none; /* Garante que não haja marcadores nos subitens */
+}
+
+.sidebar .dropdown-container a {
+  font-size: 13px;
+  padding: 5px 15px;
+}
+
+.sidebar .dropdown-container a:hover {
+  color: #ff9800;
+}
+
+.sidebar .bottom-menu {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #555;
+}
+
+.sidebar .dropdown-btn i.fas.fa-caret-down {
+  margin-left: auto;
+  transition: transform 0.3s;
+}
+
+.sidebar .dropdown-btn.active i.fas.fa-caret-down {
+  transform: rotate(180deg);
+}
+
+.sidebar a i {
+  margin-right: 8px; /* Adiciona margem à direita dos ícones */
+}
+
+.sidebar .dropdown-btn i {
+  margin-right: 8px; /* Adiciona margem à direita dos ícones nos botões dropdown */
+}
+
+.sidebar .dropdown-btn i.fas.fa-caret-down {
+  margin-right: 0; /* Remove a margem para a seta de dropdown */
+}
+
+.overlay {
+  position: fixed;
+  height: 35px;
+  width: 35px;
+  top: 20px;
+  left: 10px;
+  background-color: rgba(52, 58, 64, 0.5); /* Fundo 50% transparente */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.5s;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.overlay span {
+  font-size: 25px;
+  color: #343a40;
+}
+
+.overlay.hidden {
+  display: none; /* Esconde o botão quando o menu está aberto */
+}
+
+.content {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
