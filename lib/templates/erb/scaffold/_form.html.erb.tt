@@ -5,7 +5,7 @@
       <%# Exibição de erros com sombra flutuante %>
       <%% if <%= singular_table_name %>.errors.any? %>
         <div id="error_explanation" class="alert alert-danger">
-          <h2><%%= t('errors.template.header', count: <%= singular_table_name %>.errors.count, model: @<%= singular_table_name.model_name %>.human) %></h2>
+          <h2><%%= t('errors.template.header', count: <%= singular_table_name %>.errors.count, model: @<%= singular_table_name.camelize %>.human) %></h2>
           <p><%%= t('errors.template.body') %></p>
           <ul>
             <%% <%= singular_table_name %>.errors.full_messages.each do |message| %>
