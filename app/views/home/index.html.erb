@@ -1,8 +1,3 @@
-<% content_for :head do %>
-  <!-- 📦 Adds importmap with CKEditor 5 assets. -->
-  <!-- 🌍 It'll automatically use your `I18n.locale` language. -->
-  <%= ckeditor5_assets %>
-<% end %>
 <div class="container mt-5">
   <% if flash.any? %>
   <% flash.each do |type, message| %>
@@ -25,5 +20,4 @@
       </div>
     </div>
   </div>
-  <%= ckeditor5_editor %>
 </div>
