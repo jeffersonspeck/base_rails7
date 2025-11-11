@@ -1,7 +1,7 @@
 # Base Rails 8 Template
 
 [![Ruby](https://img.shields.io/badge/Ruby-3.2.x-red.svg)](https://www.ruby-lang.org/)
-[![Rails](https://img.shields.io/badge/Rails-8.0.x-brightgreen.svg)](https://rubyonrails.org/)
+[![Rails](https://img.shields.io/badge/Rails-8.1.x-brightgreen.svg)](https://rubyonrails.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-✓-blue.svg)](https://www.postgresql.org/)
 [![License](https://img.shields.io/badge/License-MIT-black.svg)](#license)
 
