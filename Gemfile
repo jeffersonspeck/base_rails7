@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 8.0.1"
-gem "pg", "~> 1.1"
-gem "puma", ">= 5.0"
+gem "rails"
+gem "pg"
+gem "puma"
 
 gem "sprockets-rails"        # se você estiver usando assets clássicos (CSS/IMG)
 gem "importmap-rails"
@@ -13,7 +13,7 @@ gem "bootstrap"
 
 # CSS / UI
 # Opção A: usar CSS do SB Admin 2 direto (recomendado) e só font-awesome via gem
-gem "font-awesome-sass", "~> 6.0"
+gem "font-awesome-sass"
 gem "sassc-rails"          # para seus SCSS próprios
 
 gem "ckeditor5"
@@ -29,7 +29,7 @@ gem "wysihtml5-rails"
 
 gem "dotenv-rails", groups: [:development, :test]
 gem "kaminari"
-gem "image_processing", "~> 1.2"
+gem "image_processing"
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
