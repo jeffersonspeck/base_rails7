@@ -153,13 +153,9 @@
       <div id="collapseDistributorFinancial" class="collapse" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <%= link_to "Invoices", "#", class: "collapse-item" %>
-          <% if can?(:financial, Account) %>
-            <%= link_to "Products/Prices", "#", class: "collapse-item" %>
-            <%= link_to "Clients/Totals",  "#", class: "collapse-item" %>
-          <% end %>
-          <% if can?(:read, Lifetime) %>
-            <%= link_to "Duration", "#", class: "collapse-item" %>
-          <% end %>
+          <%= link_to "Products/Prices", "#", class: "collapse-item" %>
+          <%= link_to "Clients/Totals",  "#", class: "collapse-item" %>
+          <%= link_to "Duration", "#", class: "collapse-item" %>
         </div>
       </div>
     </li>
