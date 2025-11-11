@@ -1,0 +1,16 @@
+<!-- app/views/demos/index.html.erb -->
+
+<% content_for :head do %>
+  <!-- 📦 Adds importmap with CKEditor 5 assets. -->
+  <!-- 🌍 It'll automatically use your `I18n.locale` language. -->
+  <%= ckeditor5_assets %>
+<% end %>
+
+<!-- 🖋️ CKEditor 5 might be placed using simple view helper ... -->
+<%= ckeditor5_editor %>
+
+<!-- ... or using form input helper -->
+
+<%= form_for @post do |f| %>
+  <%= f.ckeditor5 :content, required: true %>
+<% end %>

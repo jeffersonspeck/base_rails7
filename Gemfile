@@ -15,7 +15,8 @@ gem "bootstrap"
 # Opção A: usar CSS do SB Admin 2 direto (recomendado) e só font-awesome via gem
 gem "font-awesome-sass", "~> 6.0"
 gem "sassc-rails"          # para seus SCSS próprios
-gem "font-awesome-sass", "~> 6.0"
+
+gem "ckeditor5"
 
 # Autenticação / autorização / uploads etc
 gem "devise"

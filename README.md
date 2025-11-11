@@ -50,6 +50,7 @@ This project is intended as a solid foundation for admin panels, SaaS backends, 
 - **Pagination**: Kaminari
 - **Markdown**: Redcarpet
 - **Rich Text / WYSIWYG (legacy)**: wysihtml5-rails
+- **CKEditor 5**: ckeditor5
 - **Config / ENV**: dotenv-rails
 - **JSON APIs**: Jbuilder
 - **Performance**: bootsnap
@@ -164,11 +165,11 @@ DB_PASSWORD=your_password
 DB_HOST=localhost
 DB_PORT=5432
 
-DB_NAME_DEVELOPMENT=base_rails8_development
-DB_NAME_TEST=base_rails8_test
-DB_NAME_PRODUCTION=base_rails8_production
+DB_NAME_DEVELOPMENT=base_rails_development
+DB_NAME_TEST=base_rails_test
+DB_NAME_PRODUCTION=base_rails_production
 
-DB_USERNAME_PRODUCTION=base_rails8
+DB_USERNAME_PRODUCTION=base_rails
 DB_PASSWORD_PRODUCTION=change_me_securely
 ```
 
@@ -190,7 +191,7 @@ rails db:seed
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/jeffersonspeck/base_rails7.git your-project
+   git clone https://github.com/jeffersonspeck/base_rails.git your-project
    cd your-project
    ```
 

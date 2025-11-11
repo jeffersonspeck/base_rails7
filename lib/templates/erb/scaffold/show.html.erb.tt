@@ -1,45 +1,114 @@
-<div class="container-fluid">
-  <div class="shadow-sm p-3 mb-4 bg-white rounded">
-    <h1 class="mb-0"><%%= t('titles.details', model: @<%= singular_table_name.camelize %>) %></h1>
-    <div class="shadow-sm p-4 mb-4 bg-white rounded">
+<%# Show - SB Admin + Bootstrap 5 %>
+
+<div class="container-fluid px-0">
+
+  <%# Page header %>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h1 class="h3 mb-1 text-gray-800">
+        <i class="fas fa-file-alt text-primary me-2"></i>
+        <%%= t(
+              "titles.details",
+              model: @<%= singular_table_name %>.class.model_name.human,
+              default: "#{@<%= singular_table_name %>.class.model_name.human} details"
+            ) %>
+      </h1>
+      <p class="mb-0 text-muted">
+        <%%= t(
+              "views.show.subtitle",
+              default: "Review the information for this record."
+            ) %>
+      </p>
+    </div>
+
+    <div class="btn-group">
+      <%%= link_to <%= index_helper %>_path, class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fas fa-arrow-left me-1"></i>
+        <%%= t("actions.back", default: "Back") %>
+      <%% end %>
+
+      <%%= link_to edit_<%= singular_route_name %>_path(@<%= singular_table_name %>),
+                    class: "btn btn-outline-warning btn-sm" do %>
+        <i class="fas fa-pen me-1"></i>
+        <%%= t("actions.edit", default: "Edit") %>
+      <%% end %>
+
+      <%%= link_to @<%= singular_table_name %>,
+                    class: "btn btn-outline-danger btn-sm",
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: t(
+                        "actions.confirm_destroy",
+                        default: "Are you sure you want to delete this record?"
+                      )
+                    } do %>
+        <i class="fas fa-trash-alt me-1"></i>
+        <%%= t("actions.destroy", default: "Delete") %>
+      <%% end %>
+    </div>
+  </div>
+
+  <%# Main card %>
+  <div class="card shadow mb-4 border-0">
+    <div class="card-body">
+
+      <%# Flash messages %>
       <%% if flash.any? %>
         <%% flash.each do |type, message| %>
-          <div class="alert <%%= alert_class_for(type) %> alert-dismissible fade show" role="alert">
+          <div class="alert <%%= alert_class_for(type) %> alert-dismissible fade show mb-3" role="alert">
             <%%= message %>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         <%% end %>
       <%% end %>
+
+      <%# Attributes %>
       <% attributes.reject(&:password_digest?).each do |attribute| -%>
         <% if attribute.attachment? -%>
-          <div class="form-group mb-3">
-            <%%= s.<%= attribute.reference? ? :association : :attribute %> :<%= attribute.name %> %>
-            <%%= link_to @<%= singular_table_name %>.<%= attribute.column_name %>.filename, @<%= singular_table_name %>.<%= attribute.column_name %> if @<%= singular_table_name %>.<%= attribute.column_name %>.attached? %>
-          </div>
-        <% elsif attribute.attachments? -%>
-          <div class="form-group mb-3">
-            <p><strong><%= attribute.human_name %>:</strong></p>
-            <%% @<%= singular_table_name %>.<%= attribute.column_name %>.each do |<%= attribute.singular_name %>| %>
-              <div><%%= link_to <%= attribute.singular_name %>.filename, <%= attribute.singular_name %> %></div>
+          <div class="mb-3">
+            <p class="fw-semibold text-muted mb-1"><%= attribute.human_name %></p>
+            <%% if @<%= singular_table_name %>.<%= attribute.column_name %>.attached? %>
+              <i class="fas fa-paperclip me-1 text-secondary"></i>
+              <%%= link_to @<%= singular_table_name %>.<%= attribute.column_name %>.filename,
+                          @<%= singular_table_name %>.<%= attribute.column_name %>,
+                          class: "text-decoration-none" %>
+            <%% else %>
+              <p class="mb-0 text-muted">
+                <%%= t("views.show.empty", default: "No file attached") %>
+              </p>
             <%% end %>
           </div>
+
+        <% elsif attribute.attachments? -%>
+          <div class="mb-3">
+            <p class="fw-semibold text-muted mb-1"><%= attribute.human_name %></p>
+            <%% if @<%= singular_table_name %>.<%= attribute.column_name %>.attached? %>
+              <ul class="mb-0">
+                <%% @<%= singular_table_name %>.<%= attribute.column_name %>.each do |file| %>
+                  <li>
+                    <i class="fas fa-paperclip me-1 text-secondary"></i>
+                    <%%= link_to file.filename, file, class: "text-decoration-none" %>
+                  </li>
+                <%% end %>
+              </ul>
+            <%% else %>
+              <p class="mb-0 text-muted">
+                <%%= t("views.show.empty", default: "No files attached") %>
+              </p>
+            <%% end %>
+          </div>
+
         <% else -%>
-          <div class="form-group mb-3">
-            <p><strong><%= attribute.human_name %>:</strong></p>
-            <div>
-              <%%= @<%= singular_table_name %>.<%= attribute.column_name %> %>
-            </div>
+          <div class="mb-3">
+            <p class="fw-semibold text-muted mb-1"><%= attribute.human_name %></p>
+            <p class="mb-0">
+              <%%= @<%= singular_table_name %>.<%= attribute.column_name %>.presence ||
+                  t("views.show.empty", default: "-") %>
+            </p>
           </div>
         <% end -%>
       <% end -%>
-      <div class="mt-3">
-        <%%= link_to edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn btn-warning" do %>
-          <i class="fas fa-pen"></i> <%%= t('actions.edit') %>
-        <%% end %>
-        <%%= link_to <%= index_helper %>_path, class: "btn btn-secondary" do %>
-          <i class="fas fa-arrow-left"></i> <%%= t('actions.back') %>
-        <%% end %>
-      </div>
+
     </div>
-  </div>    
+  </div>
 </div>

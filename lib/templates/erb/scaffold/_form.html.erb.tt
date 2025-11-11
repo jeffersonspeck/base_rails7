@@ -1,50 +1,132 @@
-<%# Formulário com sombra flutuante %>
-<div class="container-fluid">
-  <div class="shadow-sm p-4 mb-4 bg-white rounded">
-    <%%= form_with(model: <%= model_resource_name %>) do |form| %>
-      <%# Exibição de erros com sombra flutuante %>
-      <%% if <%= singular_table_name %>.errors.any? %>
-        <div id="error_explanation" class="alert alert-danger">
-          <h2><%%= t('errors.template.header', count: <%= singular_table_name %>.errors.count, model: @<%= singular_table_name.camelize %>) %></h2>
-          <p><%%= t('errors.template.body') %></p>
-          <ul>
-            <%% <%= singular_table_name %>.errors.full_messages.each do |message| %>
-              <li><%%= message %></li>
-            <%% end %>
-          </ul>
-        </div>
-      <%% end %>
+<%# Modern SB Admin + Bootstrap 5 form %>
+<div class="container-fluid px-0">
+  <div class="card shadow mb-4 border-0">
+    <div class="card-header py-3 d-flex align-items-center">
+      <i class="fa fa-pen-to-square me-2 text-primary"></i>
+      <h6 class="m-0 fw-bold text-primary">
+        <%= singular_table_name.humanize %>
+      </h6>
+    </div>
 
-      <% attributes.each do |attribute| -%>
-        <div class="form-group mb-3">
-          <% if attribute.password_digest? -%>
-            <%%= form.label :password, class: "form-label" %>
-            <%%= form.password_field :password, class: "form-control" %>
-          </div>
-          <div class="form-group mb-3">
-            <%%= form.label :password_confirmation, class: "form-label" %>
-            <%%= form.password_field :password_confirmation, class: "form-control" %>
-          <% elsif attribute.attachments? -%>
-            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
-            <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true %>
-          <% elsif attribute.type == :boolean -%>
-            <div class="form-check mb-3">
-              <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" %>
-              <%%= form.label :<%= attribute.column_name %>, class: "form-check-label" %>
+    <div class="card-body">
+      <%%= form_with(model: <%= model_resource_name %>, class: "needs-validation", local: true) do |form| %>
+        <%% resource = <%= model_resource_name %> %>
+
+        <%# Error block %>
+        <%% if resource.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger border-0 shadow-sm mb-4">
+            <div class="d-flex align-items-center mb-2">
+              <i class="fa fa-circle-exclamation me-2"></i>
+              <h5 class="mb-0">
+                <%%= t("errors.template.header",
+                      count: resource.errors.count,
+                      model: resource.class.model_name.human) %>
+              </h5>
             </div>
-          <% elsif attribute.reference? -%>
-            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
-            <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :name, { prompt: true }, { class: "form-select" } %>
-          <% else -%>
-            <%%= form.label :<%= attribute.column_name %>, class: "form-label" %>
-            <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
-          <% end -%>
-        </div>
-      <% end -%>
+            <p class="mb-2">
+              <%%= t("errors.template.body", default: "Please review the highlighted fields below.") %>
+            </p>
+            <ul class="mb-0 ps-3">
+              <%% resource.errors.full_messages.each do |message| %>
+                <li><%%= message %></li>
+              <%% end %>
+            </ul>
+          </div>
+        <%% end %>
 
-      <div class="form-group mb-3">
-        <%%= form.submit class: 'btn btn-primary' %>
-      </div>
-    <%% end %>
+        <%# Fields %>
+        <% attributes.each do |attribute| -%>
+          <% if attribute.password_digest? -%>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%%= form.label :password, class: "form-label fw-semibold" %>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <%%= form.password_field :password, class: "form-control", autocomplete: "new-password" %>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <%%= form.label :password_confirmation, class: "form-label fw-semibold" %>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fa fa-lock"></i>
+                  </span>
+                  <%%= form.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+                </div>
+              </div>
+            </div>
+
+          <% elsif attribute.attachments? -%>
+            <div class="mb-3">
+              <%%= form.label :<%= attribute.column_name %>, class: "form-label fw-semibold" %>
+              <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, multiple: true, class: "form-control" %>
+            </div>
+
+          <% elsif attribute.type == :boolean -%>
+            <div class="form-check form-switch mb-3">
+              <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-check-input" %>
+              <%%= form.label :<%= attribute.column_name %>, class: "form-check-label fw-semibold" %>
+            </div>
+
+          <% elsif attribute.reference? -%>
+            <div class="mb-3">
+              <%%= form.label :<%= attribute.column_name %>, class: "form-label fw-semibold" %>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fa fa-database"></i>
+                </span>
+                <%%= form.collection_select :<%= attribute.column_name %>,
+                                            <%= attribute.name.camelize %>.all,
+                                            :id,
+                                            :respond_to?(:name) ? :name : :id,
+                                            { prompt: true },
+                                            { class: "form-select" } %>
+              </div>
+            </div>
+
+          <% else -%>
+            <div class="mb-3">
+              <%%= form.label :<%= attribute.column_name %>, class: "form-label fw-semibold" %>
+
+              <%# Simple heuristic: icons for common field names %>
+              <%% icon_class =
+                    case "<%= attribute.column_name %>"
+                    when /email/ then "fa-envelope"
+                    when /name/  then "fa-user"
+                    when /title/ then "fa-heading"
+                    when /phone|tel/ then "fa-phone"
+                    when /date/ then "fa-calendar-days"
+                    else "fa-circle-dot"
+                    end %>
+
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fa <%%= icon_class %>"></i>
+                </span>
+                <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+              </div>
+            </div>
+          <% end -%>
+        <% end -%>
+
+        <div class="d-flex justify-content-between mt-4">
+          <%%= link_to t(".cancel", default: "Back"), :back, class: "btn btn-light border" %>
+          <div>
+            <button type="reset" class="btn btn-outline-secondary me-2">
+              <i class="fa fa-rotate-left me-1"></i>
+              Reset
+            </button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa fa-save me-1"></i>
+              <%%= t(".submit", default: "Save") %>
+            </button>
+          </div>
+        </div>
+
+      <%% end %>
+    </div>
   </div>
 </div>

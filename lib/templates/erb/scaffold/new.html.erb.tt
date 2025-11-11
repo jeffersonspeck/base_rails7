@@ -1,11 +1,30 @@
-<div class="container-fluid">
-  <div class="shadow-sm p-3 mb-4 bg-white rounded">
-    <h1><%%= t('views.create.creating', model: @<%= singular_table_name.camelize %>) %></h1>
-    <%%= render 'form', <%= singular_table_name %>: @<%= singular_table_name %> %>
-    <div class="mt-3">
-      <%%= link_to <%= index_helper %>_path, class: "btn btn-secondary" do %>
-        <i class="fas fa-arrow-left"></i> <%%= t('actions.back') %>
+<%# New page - SB Admin + Bootstrap 5 %>
+<div class="container-fluid px-0">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <h1 class="h3 mb-1 text-gray-800">
+        <i class="fas fa-plus-circle text-success me-2"></i>
+        <%%= t(
+              "views.create.creating",
+              model: <%= class_name %>.model_name.human,
+              default: "New <%= singular_table_name.humanize %>"
+            ) %>
+      </h1>
+      <p class="mb-0 text-muted">
+        <%%= t(
+              "views.create.subtitle",
+              default: "Fill in the fields below to create a new record."
+            ) %>
+      </p>
+    </div>
+
+    <div>
+      <%%= link_to <%= index_helper %>_path, class: "btn btn-outline-secondary btn-sm" do %>
+        <i class="fas fa-arrow-left me-1"></i>
+        <%%= t("actions.back", default: "Back") %>
       <%% end %>
     </div>
-  </div>  
+  </div>
+
+  <%%= render "form", <%= singular_table_name %>: @<%= singular_table_name %> %>
 </div>
