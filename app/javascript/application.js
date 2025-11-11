@@ -1,7 +1,20 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import { Turbo } from "@hotwired/turbo-rails";
-Turbo.start();
-import "@hotwired/turbo-rails"
+import Rails from "@rails/ujs"
+Rails.start()
+console.log("Rails UJS inicializado")
+
+import { Turbo } from "@hotwired/turbo-rails"
+Turbo.start()
+
 import "controllers"
+
+// Importa jQuery como efeito colateral (UMD coloca em window)
+import "jquery"
+window.$ = window.jQuery = window.jQuery || window.$
+import "@popperjs/core"
+// Agora Bootstrap encontra $.fn
 import "bootstrap"
-import "jquery";
+
+// O resto
+import "sb-admin-2"
+import "dashboard"
+import "topbar_badges"

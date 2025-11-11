@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :role, presence: true
   before_create :set_default_role
 
-  enum role: { admin: 0, normal_user: 1, user: 2 }
+  enum :role, { admin: 0, normal_user: 1, user: 2 }
 
   # Métodos para facilitar a verificação de funções específicas
   def admin?

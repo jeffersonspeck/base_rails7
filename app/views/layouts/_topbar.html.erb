@@ -1,0 +1,134 @@
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <!-- Left: Search -->
+  <form class="d-none d-sm-inline-block form-inline mr-auto ml-3 my-2 my-md-0 mw-100 navbar-search"
+        action="<%= accounts_path %>" method="get">
+    <div class="input-group">
+      <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="Buscar..." aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-search fa-sm"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Right: Nav items -->
+  <div class="collapse navbar-collapse d-lg-flex justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto align-items-center">
+
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-turbo="false">
+          <i class="fas fa-bell fa-fw"></i>
+          <span id="alerts-badge" class="badge bg-danger badge-counter d-none">0</span>
+        </a>
+
+        <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
+            aria-labelledby="alertsDropdown">
+          <h6 class="dropdown-header">ALERTAS</h6>
+          <div id="alerts-list">
+            <span class="dropdown-item small text-gray-500">Carregando...</span>
+          </div>
+          <%= link_to "Ver todos", '', class: "dropdown-item text-center small text-gray-500" %>
+        </div>
+      </li>
+
+      <!-- Messages -->
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-turbo="false">
+          <i class="fas fa-envelope fa-fw"></i>
+          <span id="messages-badge" class="badge bg-primary badge-counter d-none">0</span>
+        </a>
+
+        <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
+            aria-labelledby="messagesDropdown">
+          <h6 class="dropdown-header">MENSAGENS</h6>
+          <div id="messages-list">
+            <span class="dropdown-item small text-gray-500">Carregando...</span>
+          </div>
+          <%= link_to "Ver todas", '', class: "dropdown-item text-center small text-gray-500" %>
+        </div>
+      </li>
+
+      <!-- Notifications (genéricas do teu /notifications/unread) -->
+      <!-- <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-turbo="false">
+          <i class="fas fa-bell fa-fw"></i>
+          <span id="notifications-badge" class="badge bg-danger badge-counter d-none">0</span>
+        </a>
+
+        <div class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
+            aria-labelledby="notificationsDropdown">
+          <h6 class="dropdown-header">NOTIFICAÇÕES</h6>
+          <div id="notifications-list">
+            <span class="dropdown-item small text-gray-500">Carregando...</span>
+          </div>
+          <%= link_to "#", class: "dropdown-item text-center small text-gray-500" do %>
+            Ver todas
+          <% end %>
+        </div>
+      </li> -->
+
+      <!-- Divider -->
+      <div class="topbar-divider d-none d-sm-block"></div>
+
+      <!-- Help -->
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="helpDropdown" role="button"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-turbo="false">
+          <i class="fas fa-question-circle fa-fw"></i>
+        </a>
+        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            aria-labelledby="alertsDropdown">
+          <h6 class="dropdown-header">AJUDA</h6>
+          <%= link_to "#", class: "dropdown-item" do %>
+            <i class="fas fa-video fa-sm fa-fw mr-2 text-gray-400"></i> Vídeos
+          <% end %>
+          <%= link_to '#', class: "dropdown-item" do %>
+            <i class="fas fa-book fa-sm fa-fw mr-2 text-gray-400"></i> FAQ
+          <% end %>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <div class="topbar-divider d-none d-sm-block"></div>
+
+      <!-- User -->
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-turbo="false">
+          <span class="mr-3 d-none d-lg-inline text-gray-600 small">
+            <%= current_user.name %>&nbsp;&nbsp;
+          </span>
+          <% if current_user.photo? %>
+            <img class="img-profile rounded-circle ml-2" src="<%= current_user.photo %>">
+          <% else %>
+            <img class="img-profile rounded-circle ml-2" src="/img/undraw_profile.svg">
+          <% end %>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+            aria-labelledby="userDropdown">
+          <%= link_to edit_user_registration_path, class: "dropdown-item" do %>
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Meus Dados
+          <% end %>
+
+          <div class="dropdown-divider"></div>
+          <%= link_to destroy_user_session_path,
+                method: :delete,
+                data: { turbo: false, confirm: "Deseja sair?" },
+                class: "dropdown-item" do %>
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

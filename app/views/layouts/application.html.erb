@@ -1,125 +1,81 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
-  <head>
-    <title><%= content_for(:title) || "Your Project" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta charset="UTF-8">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_importmap_tags %>    
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true, crossorigin: 'anonymous', type: "module" %>  
-    <script src="https://cdn.tiny.cloud/1/y13juh5x7n32fyuctf4iewb9rsdzcpqfwkc8m53fw73kygmh/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title><%= content_for?(:title) ? yield(:title) : "TechCoop Cloud" %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <%= yield :head %>
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-  </head>
+<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
-  <body>
-    <% if user_signed_in? %>
-      <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <ul class="menu-list">
-          <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="#"><i class="fas fa-chart-line"></i> Dashboard</a></li>
-          <li><a href="#"><i class="fas fa-file"></i> Menu 1</a></li>
-          <li><a href="#"><i class="fas fa-bell"></i> Menu 2</a></li>
-          <li class="dropdown">
-            <a href="javascript:void(0)" class="dropdown-btn"><i class="fas fa-folder"></i>Submenu 1<i class="fas fa-caret-down"></i></a>
-            <ul class="dropdown-container">
-              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 1</a></li>
-              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 2</a></li>
-              <li><a href="#"><i class="fas fa-folder-open"></i> Opção 3</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="javascript:void(0)" class="dropdown-btn"><i class="fas fa-users"></i> Menu 3 <i class="fas fa-caret-down"></i></a>
-            <ul class="dropdown-container">
-              <li>
-                <a href="javascript:void(0)" class="submenu-btn"><i class="fas fa-user-friends"></i> Submenu 2 <i class="fas fa-caret-right"></i></a>
-                <ul class="sub-dropdown-container">
-                  <li><a href="#"><i class="fas fa-folder"></i> Opção 1</a></li>
-                  <li><a href="#"><i class="fas fa-folder"></i> Opção 2</a></li>
-                  <li><a href="#"><i class="fas fa-folder"></i> Opção 3</a></li>
-                </ul>
-              </li>
-              <li><a href="#"><i class="fas fa-user-friends"></i> Advogado</a></li>
-              <li>
-                <a href="javascript:void(0)" class="submenu-btn"><i class="fas fa-file-alt"></i> Submenu 3 <i class="fas fa-caret-right"></i></a>
-                <ul class="sub-dropdown-container">
-                  <li><a href="#"><i class="fas fa-plus"></i> Opção 1</a></li>
-                  <li><a href="#"><i class="fas fa-edit"></i> Opção 2</a></li>
-                  <li><a href="#"><i class="fas fa-trash"></i> Opção 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          
-        </ul>
-        <div class="bottom-menu">
-          <ul>
-            <li><a href="#"><i class="fas fa-cogs"></i> Configurações</a></li>
-            <li><%= link_to destroy_user_session_path, method: :delete do %><i class="fas fa-sign-out-alt"></i> Logout</a><% end %></li>
-          </ul>
+<link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+<%= javascript_importmap_tags %>
+
+
+<%= yield :head %>
+</head>
+
+<body id="page-top">
+  <% if user_signed_in? %>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <%= render "layouts/sidebar" %>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+          <!-- Topbar -->
+          <%= render "layouts/topbar" %>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <% if notice.present? %>
+              <div class="alert alert-info"><%= notice %></div>
+            <% end %>
+            <% if alert.present? %>
+              <div class="alert alert-warning"><%= alert %></div>
+            <% end %>
+
+            <%= yield %>
+          </div>
+          <!-- /.container-fluid -->
+
         </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <%= render "layouts/footer" %>
+        <!-- End of Footer -->
+
       </div>
-      <div class="overlay" onclick="openNav()">
-        <span id="openSidebarBtn"><i class="fas fa-bars"></i></span>
-      </div>
-    <% end %>      
-    <div class="content" id="mainContent">
+      <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+  <% else %>
+    <!-- Layout simplificado quando não logado -->
+    <div class="container py-4">
       <%= yield %>
-    </div>   
-  </body>
-  <script>
-    function openNav() {
-      $("#mySidebar").css("width", "250px");
-      $(".content").css("margin-left", "250px");
-      $(".overlay").hide(); // Esconde o botão de overlay ao abrir o menu
-    }
-  
-    function closeNav() {
-      $("#mySidebar").css("width", "0");
-      $(".content").css("margin-left", "0");
-      $(".overlay").show(); // Mostra o botão de overlay ao fechar o menu
-    }
-  
-    // Função para os dropdowns do menu
-    function setupDropdowns() {
-      $('.dropdown-btn').off('click').on('click', function() {
-        $(this).toggleClass('active');
-        $(this).next('.dropdown-container').slideToggle(); // Expande/recolhe o conteúdo do dropdown
-      });
-    }
-  
-    // Garante que o setupDropdowns é chamado após o carregamento inicial e após visitas Turbo
-    document.addEventListener("DOMContentLoaded", setupDropdowns);
-    document.addEventListener("turbo:load", setupDropdowns);
+    </div>
+  <% end %>
 
-    document.querySelectorAll('.submenu-btn').forEach(item => {
-      item.addEventListener('click', function(e) {
-        e.preventDefault(); // Previne o comportamento padrão
-        const submenu = this.nextElementSibling; // Pega o próximo submenu
-
-        // Alterna a exibição do submenu
-        if (submenu) {
-          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-        }
-      });
-    });
-
-    // Fechar submenus ao clicar fora
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.dropdown')) {
-        document.querySelectorAll('.sub-dropdown-container').forEach(submenu => {
-          submenu.style.display = 'none'; // Ocultar todos os submenus
-        });
-      }
-    });    
-  </script>
+  <%= yield :scripts %>
+</body>
 </html>

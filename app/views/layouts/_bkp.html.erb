@@ -1,0 +1,231 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <!-- Brand -->
+  <%= link_to panel_index_path, class: "sidebar-brand d-flex align-items-center justify-content-center" do %>
+    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
+    <div class="sidebar-brand-text mx-3">TechCoop</div>
+  <% end %>
+
+  <hr class="sidebar-divider my-0">
+
+  <!-- Dashboard -->
+  <li class="nav-item <%= current_page?(panel_index_path) ? 'active' : '' %>">
+    <%= link_to panel_index_path, class: "nav-link" do %>
+      <i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span>
+    <% end %>
+  </li>
+
+  <hr class="sidebar-divider">
+
+  <div class="sidebar-heading">Navegação</div>
+
+  <!-- Conta Corrente -->
+  <li class="nav-item">
+    <%= link_to wallets_path, class: "nav-link" do %>
+      <i class="fas fa-piggy-bank"></i><span>Conta Corrente</span>
+    <% end %>
+  </li>
+
+  <!-- Cadastros (collapse) -->
+  <li class="nav-item">
+    <a class="nav-link collapsed"
+       href="#collapseCadastros" role="button"
+       data-toggle="collapse" data-target="#collapseCadastros"
+       data-turbo="false" aria-expanded="false" aria-controls="collapseCadastros">
+      <i class="fa fa-folder-open"></i><span>Cadastros</span>
+    </a>
+    <div id="collapseCadastros" class="collapse" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to "Produtos",  gestao_produtos_path, class: "collapse-item" %>
+        <%= link_to "Serviços",  gestao_servicos_path, class: "collapse-item" %>
+        <%= link_to "Pessoas",   gestao_pessoas_path,  class: "collapse-item" %>
+      </div>
+    </div>
+  </li>
+
+  <!-- Vendas (collapse) -->
+  <li class="nav-item">
+    <a class="nav-link collapsed"
+       href="#collapseVendas" role="button"
+       data-toggle="collapse" data-target="#collapseVendas"
+       data-turbo="false" aria-expanded="false" aria-controls="collapseVendas">
+      <i class="fa fa-shopping-cart"></i><span>Vendas</span>
+    </a>
+    <div id="collapseVendas" class="collapse" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to "Notas Fiscais", "#", class: "collapse-item" %>
+        <%= link_to "Pedidos", gestao_order_epedidos_index_path, class: "collapse-item" %>
+      </div>
+    </div>
+  </li>
+
+  <!-- Gestão (collapse) -->
+  <li class="nav-item">
+    <a class="nav-link collapsed"
+       href="#collapseGestao" role="button"
+       data-toggle="collapse" data-target="#collapseGestao"
+       data-turbo="false" aria-expanded="false" aria-controls="collapseGestao">
+      <i class="fa fa-hand-holding-usd"></i><span>Gestão</span>
+    </a>
+    <div id="collapseGestao" class="collapse" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to "Movimentos",  "#",                   class: "collapse-item" %>
+        <%= link_to "Duplicatas",  gestao_duplicata_path, class: "collapse-item" %>
+      </div>
+    </div>
+  </li>
+
+  <!-- DFEs (collapse) -->
+  <li class="nav-item">
+    <a class="nav-link collapsed"
+       href="#collapseDFE" role="button"
+       data-toggle="collapse" data-target="#collapseDFE"
+       data-turbo="false" aria-expanded="false" aria-controls="collapseDFE">
+      <i class="fa fa-cloud-download-alt"></i><span>DFEs</span>
+    </a>
+    <div id="collapseDFE" class="collapse" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to "Consultas",          dfes_path,          class: "collapse-item" %>
+        <%= link_to "Download Movimento", dfe_downloads_path, class: "collapse-item" %>
+      </div>
+    </div>
+  </li>
+
+  <% if current_user.manager? || current_user.admin? || current_user.manager_user? || current_user.programmer? %>
+    <!-- Clientes (collapse) -->
+    <li class="nav-item">
+      <a class="nav-link collapsed"
+      href="#"
+      role="button"
+      data-toggle="collapse"
+      data-target="#collapseClientes"
+      data-turbo="false"
+      aria-expanded="false"
+      aria-controls="collapseClientes">
+      <i class="fa fa-address-card"></i><span>Clientes</span>
+      </a>
+      <div id="collapseClientes" class="collapse" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <%= link_to "Listagem",      accounts_path,    class: "collapse-item" %>
+          <%= link_to "Novo Cadastro", new_account_path, class: "collapse-item" %>
+          <% if current_user.admin? || current_user.manager? || current_user.manager_user? %>
+            <%= link_to "Pedidos de Baixa", account_service_logs_path, class: "collapse-item" %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+
+    <% if can?(:read, Debit) %>
+      <!-- Financeiro (collapse) -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"
+           href="#collapseFinanceiro" role="button"
+           data-toggle="collapse" data-target="#collapseFinanceiro"
+           data-turbo="false" aria-expanded="false" aria-controls="collapseFinanceiro">
+          <i class="fa fa-credit-card"></i><span>Financeiro</span>
+        </a>
+        <div id="collapseFinanceiro" class="collapse" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <%= link_to "Faturas", debits_path, class: "collapse-item" %>
+            <% if can?(:financial, Account) %>
+              <%= link_to "Produtos/Preços", account_service_sells_path, class: "collapse-item" %>
+              <%= link_to "Clientes/Totais",  provider_clients_path,     class: "collapse-item" %>
+            <% end %>
+            <% if can?(:read, Lifetime) %>
+              <%= link_to "Duração", lifetimes_path, class: "collapse-item" %>
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+
+    <% if can?(:read, About) %>
+      <!-- Site (collapse) -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"
+           href="#collapseSite" role="button"
+           data-toggle="collapse" data-target="#collapseSite"
+           data-turbo="false" aria-expanded="false" aria-controls="collapseSite">
+          <i class="fa fa-server"></i><span>Site</span>
+        </a>
+        <div id="collapseSite" class="collapse" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <% if can?(:read, Blog) %>
+              <%= link_to "Blog", blogs_path, class: "collapse-item" %>
+            <% end %>
+            <%= link_to "Sobre nós", edit_about_path(1), class: "collapse-item" %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+
+    <% if can?(:read, Service) %>
+      <!-- Serviços (collapse) -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"
+           href="#collapseServicos" role="button"
+           data-toggle="collapse" data-target="#collapseServicos"
+           data-turbo="false" aria-expanded="false" aria-controls="collapseServicos">
+          <i class="fa fa-server"></i><span>Serviços</span>
+        </a>
+        <div id="collapseServicos" class="collapse" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <%= link_to "Serviços",        services_path,            class: "collapse-item" %>
+            <%= link_to "Automatização",   type_services_path,       class: "collapse-item" %>
+            <%= link_to "Distribuidores",  account_service_sells_path, class: "collapse-item" %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+
+    <% if can?(:read, User) %>
+      <li class="nav-item">
+        <%= link_to users_path, class: "nav-link" do %>
+          <i class="fa fa-user-circle"></i><span>Usuários</span>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+
+  <!-- Configurações (collapse) -->
+  <li class="nav-item">
+    <a class="nav-link collapsed"
+       href="#collapseConfig" role="button"
+       data-toggle="collapse" data-target="#collapseConfig"
+       data-turbo="false" aria-expanded="false" aria-controls="collapseConfig">
+      <i class="fa fa-cog"></i><span>Configurações</span>
+    </a>
+    <div id="collapseConfig" class="collapse" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to "Meus Dados",               edit_user_registration_path,                       class: "collapse-item" %>
+        <%= link_to "Empresas que Administro",  accounts_path(current_user.account_id),            class: "collapse-item" %>
+        <% unless current_user.account_id.nil? %>
+          <%= link_to "Minha Empresa",   account_path(current_user.account_id),                         class: "collapse-item" %>
+          <%= link_to "Meus Contadores", new_account_account_controller_path(current_user.account_id), class: "collapse-item" %>
+          <%= link_to "Meus Usuários",   new_account_user_account_path(current_user.account_id),       class: "collapse-item" %>
+        <% end %>
+      </div>
+    </div>
+  </li>
+
+  <!-- Suporte -->
+  <li class="nav-item">
+    <%= link_to faqs_path, class: "nav-link" do %>
+      <i class="fa fa-question"></i><span>Perguntas e Respostas</span>
+    <% end %>
+  </li>
+
+  <% if current_user.admin? %>
+    <li class="nav-item">
+      <%= link_to protocols_path, class: "nav-link" do %>
+        <i class="fa fa-headset"></i><span>Atendimentos</span>
+      <% end %>
+    </li>
+  <% end %>
+
+  <hr class="sidebar-divider d-none d-md-block">
+
+  <!-- Sidebar Toggler -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>
