@@ -87,7 +87,7 @@ GEM
     bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
-    brakeman (6.2.1)
+    brakeman (7.0.0)
       racc
     builder (3.3.0)
     cancancan (3.6.1)
@@ -126,9 +126,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    dotenv (3.1.4)
-    dotenv-rails (3.1.4)
-      dotenv (= 3.1.4)
+    dotenv (3.1.7)
+    dotenv-rails (3.1.7)
+      dotenv (= 3.1.7)
       railties (>= 6.1)
     drb (2.2.1)
     erubi (1.13.0)
@@ -220,7 +220,7 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    nio4r (2.7.4)
+    nio4r (2.7.3)
     nokogiri (1.17.2-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.17.2-arm-linux)
@@ -244,7 +244,7 @@ GEM
       racc
     pg (1.5.8)
     popper_js (2.11.8)
-    psych (5.2.1)
+    psych (5.2.2)
       date
       stringio
     public_suffix (6.0.1)

@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="shadow-sm p-3 mb-4 bg-white rounded">
-    <h1 class="mb-0"><%%= t('titles.details', model: model: @<%= singular_table_name.model_name %>.human) %></h1>
+    <h1 class="mb-0"><%%= t('titles.details', model: @<%= singular_table_name.camelize %>) %></h1>
     <div class="shadow-sm p-4 mb-4 bg-white rounded">
       <%% if flash.any? %>
         <%% flash.each do |type, message| %>

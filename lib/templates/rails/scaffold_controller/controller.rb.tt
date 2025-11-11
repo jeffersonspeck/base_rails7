@@ -24,7 +24,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= singular_table_name %> = <%= orm_class.build(class_name, "#{singular_table_name}_params") %>
 
     if @<%= orm_instance.save %>
-      redirect_to @<%= singular_table_name %>, notice: t('notices.created', model: @<%= singular_table_name.model_name %>.human)
+      redirect_to @<%= singular_table_name %>, notice: t('notices.created', model: @<%= singular_table_name.camelize %>)
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PATCH/PUT /<%= plural_table_name %>/1
   def update
     if @<%= singular_table_name %>.update(<%= "#{singular_table_name}_params" %>)
-      redirect_to @<%= singular_table_name %>, notice: t('notices.updated', model: @<%= singular_table_name.model_name %>.human)
+      redirect_to @<%= singular_table_name %>, notice: t('notices.updated', model: @<%= singular_table_name.camelize %>)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,7 +42,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # DELETE /<%= plural_table_name %>/1
   def destroy
     @<%= singular_table_name %>.destroy
-    redirect_to <%= index_helper %>_url, notice: t('notices.destroyed', model: @<%= singular_table_name.model_name %>.human)
+    redirect_to <%= index_helper %>_url, notice: t('notices.destroyed', model: @<%= singular_table_name.camelize %>)
   end
 
   private
